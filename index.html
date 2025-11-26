@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burhan Kapdawala - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Animated gradient background */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Fade in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-text-accent {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Skill tag hover effect */
+        .skill-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+        
+        /* Nav link active state */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Hero section */
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        }
+        
+        /* Stats card */
+        .stat-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Project card enhanced */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Experience card enhanced */
+        .exp-card {
+            position: relative;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .exp-card:hover {
+            border-left-color: var(--primary);
+            transform: translateX(10px);
+        }
+        
+        /* Tech stack icons */
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero-pattern {
+                min-height: auto;
+                padding: 4rem 0;
+            }
+            
+            .stat-card {
+                min-width: auto;
+                flex: 1 1 calc(33.333% - 1rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-pattern {
+                min-height: auto;
+                padding: 3rem 0;
+            }
+            
+            .stat-card {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+            
+            .exp-card:hover {
+                transform: none;
+            }
+            
+            .exp-card {
+                border-left: 3px solid var(--primary);
+            }
+            
+            .tech-icon {
+                width: 100%;
+                height: auto;
+                padding: 1rem;
+            }
+            
+            .project-card::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            main {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            
+            section {
+                margin-bottom: 3rem;
+            }
+        }
+        
+        /* Tablet specific */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .stat-card {
+                flex: 1 1 calc(50% - 1rem);
+                min-width: calc(50% - 1rem);
+            }
+            
+            .grid.md\\:grid-cols-2 > * {
+                min-width: 100%;
+            }
+        }
+        
+        /* Landscape mobile */
+        @media (max-width: 896px) and (orientation: landscape) {
+            .hero-pattern {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass shadow-2xl">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-display font-bold gradient-text">BK</h1>
+                <nav class="hidden lg:flex gap-4 xl:gap-6">
+                    <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-white">About</a>
+                    <a href="#experience" class="nav-link text-sm font-medium text-gray-300 hover:text-white">Experience</a>
+                    <a href="#projects" class="nav-link text-sm font-medium text-gray-300 hover:text-white">Projects</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-gray-300 hover:text-white">Skills</a>
+                    <a href="#achievements" class="nav-link text-sm font-medium text-gray-300 hover:text-white">Achievements</a>
+                </nav>
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <a href="https://github.com/burhankapadia18" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-github text-lg sm:text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/burhankapdawala007" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-lg sm:text-xl"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="lg:hidden text-gray-300 hover:text-white transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <nav id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-gray-700">
+                <div class="flex flex-col gap-3 pt-4">
+                    <a href="#about" class="nav-link text-base font-medium text-gray-300 hover:text-white py-2">About</a>
+                    <a href="#experience" class="nav-link text-base font-medium text-gray-300 hover:text-white py-2">Experience</a>
+                    <a href="#projects" class="nav-link text-base font-medium text-gray-300 hover:text-white py-2">Projects</a>
+                    <a href="#skills" class="nav-link text-base font-medium text-gray-300 hover:text-white py-2">Skills</a>
+                    <a href="#achievements" class="nav-link text-base font-medium text-gray-300 hover:text-white py-2">Achievements</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen sm:min-h-[90vh] flex items-center justify-center hero-pattern relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-48 h-48 sm:w-72 sm:h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+            <div class="absolute top-40 right-10 w-48 h-48 sm:w-72 sm:h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-8 left-1/2 w-48 h-48 sm:w-72 sm:h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style="animation-delay: 4s;"></div>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-4 sm:mb-6">
+                    <span class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full text-xs sm:text-sm font-semibold text-indigo-300 border border-indigo-500/30">
+                        Software Engineer & AI Enthusiast
+                    </span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-4 sm:mb-6 leading-tight">
+                    <span class="gradient-text">Building Scalable</span><br>
+                    <span class="text-white">Systems & AI Solutions</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2">
+                    3+ years crafting high-performance microservices, vector databases, and AI-powered applications. 
+                    Passionate about clean architecture and scalable systems.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 px-2">
+                    <div class="stat-card rounded-2xl p-4 sm:p-6 flex-1 min-w-[120px] sm:min-w-[150px] max-w-[200px]">
+                        <div class="text-2xl sm:text-3xl font-bold gradient-text mb-2">3+</div>
+                        <div class="text-gray-400 text-xs sm:text-sm">Years Experience</div>
+                    </div>
+                    <div class="stat-card rounded-2xl p-4 sm:p-6 flex-1 min-w-[120px] sm:min-w-[150px] max-w-[200px]">
+                        <div class="text-2xl sm:text-3xl font-bold gradient-text mb-2">300+</div>
+                        <div class="text-gray-400 text-xs sm:text-sm">LeetCode Solved</div>
+                    </div>
+                    <div class="stat-card rounded-2xl p-4 sm:p-6 flex-1 min-w-[120px] sm:min-w-[150px] max-w-[200px]">
+                        <div class="text-2xl sm:text-3xl font-bold gradient-text mb-2">4*</div>
+                        <div class="text-gray-400 text-xs sm:text-sm">CodeChef Rating</div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 px-2">
+                    <a href="#projects" class="px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-indigo-500/50 transition-all text-center">
+                        View My Work
+                    </a>
+                    <a href="#experience" class="px-6 sm:px-8 py-2.5 sm:py-3 glass rounded-full text-sm sm:text-base font-semibold text-white hover:bg-opacity-80 transition-all text-center">
+                        My Experience
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+        <!-- About Section -->
+        <section id="about" class="mb-16 sm:mb-20 md:mb-24 reveal">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 sm:mb-8 gradient-text text-center">About Me</h2>
+                <div class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12">
+                    <p class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-4 sm:mb-6">
+                        I'm a <span class="text-white font-semibold">Software Engineer</span> with 3+ years of experience building and scaling microservices & data systems. 
+                        I lead the design of high‑throughput REST APIs, Kubernetes workloads, and CI/CD pipelines on AWS.
+                    </p>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-4 sm:mb-6">
+                        My expertise spans <span class="text-white font-semibold">DSA & system design</span>, with a strong focus on AI-native development. 
+                        I leverage LLMs for code generation, build RAG systems and chatbots, and work with agentic frameworks like MCP.
+                    </p>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
+                        Known for <span class="gradient-text-accent font-semibold">ownership</span>, <span class="gradient-text-accent font-semibold">clean design</span>, 
+                        and <span class="gradient-text-accent font-semibold">reliability at scale</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="mb-16 sm:mb-20 md:mb-24 reveal">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-8 sm:mb-12 gradient-text text-center">Experience</h2>
+            
+            <div class="max-w-5xl mx-auto space-y-6 sm:space-y-8">
+                <div class="glass-card rounded-2xl p-5 sm:p-6 md:p-8 exp-card">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 sm:gap-3 mb-2">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
+                                    VX
+                                </div>
+                                <div class="min-w-0">
+                                    <h3 class="text-xl sm:text-2xl font-bold text-white">SDE‑II</h3>
+                                    <p class="text-lg sm:text-xl font-semibold gradient-text-accent">VectorX DB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left md:text-right mt-2 md:mt-0">
+                            <p class="text-indigo-400 font-semibold text-sm sm:text-base">Feb 2024 ‑ Present</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Bangalore, India</p>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Designing backup, restore, and replication architecture for data durability</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Building WAL‑based replication for fast failover</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Led subscription/payment flows with Razorpay integration</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Set up GitLab CI/CD for EC2 Docker deployments</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 sm:p-6 md:p-8 exp-card">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 sm:gap-3 mb-2">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
+                                    WL
+                                </div>
+                                <div class="min-w-0">
+                                    <h3 class="text-xl sm:text-2xl font-bold text-white">Software Engineer</h3>
+                                    <p class="text-lg sm:text-xl font-semibold gradient-text-accent">Workllama</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left md:text-right mt-2 md:mt-0">
+                            <p class="text-indigo-400 font-semibold text-sm sm:text-base">Jun 2024 ‑ Nov 2024</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Bangalore, India</p>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Enhanced Sofi chatbot using LLMs and optimized APIs</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Migrated microservices from Flask to FastAPI</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Automated CI/CD with Jenkins and GitLab CI</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Deployed to Kubernetes via Rancher</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 sm:p-6 md:p-8 exp-card">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 sm:gap-3 mb-2">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
+                                    SL
+                                </div>
+                                <div class="min-w-0">
+                                    <h3 class="text-xl sm:text-2xl font-bold text-white">SDE‑1</h3>
+                                    <p class="text-lg sm:text-xl font-semibold gradient-text-accent">Skylark Labs</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left md:text-right mt-2 md:mt-0">
+                            <p class="text-indigo-400 font-semibold text-sm sm:text-base">Jun 2023 ‑ May 2024</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Bangalore, India</p>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Delivered Django/Flask APIs for iDEX project</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Built ML‑driven video processing platform</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Achieved 99.8% uptime on Amazon ECS</span>
+                        </div>
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <i class="fas fa-check-circle text-indigo-400 mt-1 text-sm sm:text-base flex-shrink-0"></i>
+                            <span class="text-sm sm:text-base text-gray-300">Created low‑code ML integration platform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-16 sm:mb-20 md:mb-24 reveal">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-8 sm:mb-12 gradient-text text-center">Featured Projects</h2>
+            <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                <div class="glass-card rounded-2xl p-6 sm:p-8 project-card">
+                    <div class="flex items-center gap-3 sm:gap-4 mb-4">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-blog text-2xl sm:text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white">Blog Platform</h3>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-4 sm:mb-6">
+                        A full-featured blogging platform with user authentication, create/edit/comment functionality, 
+                        and a modern, responsive design.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 sm:px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs sm:text-sm">Django</span>
+                        <span class="px-2.5 sm:px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs sm:text-sm">PostgreSQL</span>
+                        <span class="px-2.5 sm:px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs sm:text-sm">Authentication</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 sm:p-8 project-card">
+                    <div class="flex items-center gap-3 sm:gap-4 mb-4">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-shopping-cart text-2xl sm:text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white">E‑commerce Platform</h3>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-4 sm:mb-6">
+                        Complete e‑commerce solution with product listings, cart management, 
+                        and seamless PayTM payment integration.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 sm:px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs sm:text-sm">Django</span>
+                        <span class="px-2.5 sm:px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs sm:text-sm">PayTM API</span>
+                        <span class="px-2.5 sm:px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs sm:text-sm">E-commerce</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-16 sm:mb-20 md:mb-24 reveal">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-8 sm:mb-12 gradient-text text-center">Tech Stack</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fab fa-python text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">Python</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fab fa-aws text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">AWS</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fab fa-docker text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">Docker</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fas fa-cube text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">K8s</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fas fa-database text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">PostgreSQL</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 sm:p-6 text-center tech-icon flex flex-col items-center justify-center min-h-[120px]">
+                        <i class="fas fa-brain text-3xl sm:text-4xl text-indigo-400 mb-2"></i>
+                        <div class="text-xs sm:text-sm font-semibold text-white">AI/LLMs</div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 sm:mt-12 glass-card rounded-2xl p-6 sm:p-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Skills Overview</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-indigo-400 mb-3">Languages</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-tag px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-white text-sm font-medium">Python</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">C++</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">Java</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-indigo-400 mb-3">Frameworks</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">FastAPI</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">Django</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">Flask</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">Rasa</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-indigo-400 mb-3">AI & Data</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">LLMs</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">RAG</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">Vector DBs</span>
+                                <span class="skill-tag px-3 py-1 bg-gray-700 rounded-full text-white text-sm">MCP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="mb-16 sm:mb-20 md:mb-24 reveal">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-8 sm:mb-12 gradient-text text-center">Achievements & Recognition</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                    <div class="glass-card rounded-2xl p-5 sm:p-6">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-trophy text-2xl sm:text-3xl text-white"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg sm:text-xl font-bold text-white">CodeChef 4*</h3>
+                                <p class="text-sm sm:text-base text-gray-400">Rating: 1846</p>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-300">Ranked 52nd in Feb 2021 Long Challenge</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-5 sm:p-6">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-code text-2xl sm:text-3xl text-white"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg sm:text-xl font-bold text-white">300+ Problems</h3>
+                                <p class="text-sm sm:text-base text-gray-400">LeetCode Solved</p>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-300">Consistent practice and problem-solving</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-5 sm:p-6">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-medal text-2xl sm:text-3xl text-white"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg sm:text-xl font-bold text-white">2nd Place</h3>
+                                <p class="text-sm sm:text-base text-gray-400">Intra-college Code-War 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-5 sm:p-6">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-mobile-alt text-2xl sm:text-3xl text-white"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg sm:text-xl font-bold text-white">3rd Place</h3>
+                                <p class="text-sm sm:text-base text-gray-400">Inter-college App Design 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-5 sm:p-6">
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 text-center sm:text-left">Competitive Coding Profiles</h3>
+                    <div class="flex flex-col sm:flex-row flex-wrap justify-center sm:justify-start gap-3 sm:gap-4">
+                        <a href="https://www.codechef.com/users/burhank0018" target="_blank" class="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-sm sm:text-base font-semibold text-white hover:shadow-lg transition-all text-center">
+                            <i class="fab fa-codechef mr-2"></i>CodeChef: burhank0018
+                        </a>
+                        <a href="https://leetcode.com/yellow_snowman" target="_blank" class="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full text-sm sm:text-base font-semibold text-white hover:shadow-lg transition-all text-center">
+                            <i class="fas fa-code mr-2"></i>LeetCode: yellow_snowman
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass mt-12 sm:mt-16 py-8 sm:py-12">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
+            <h3 class="text-xl sm:text-2xl font-display font-bold gradient-text mb-3 sm:mb-4">Let's Connect</h3>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
+                <a href="https://github.com/burhankapadia18" target="_blank" class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                    <i class="fab fa-github text-xl sm:text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/burhankapdawala007" target="_blank" class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                    <i class="fab fa-linkedin text-xl sm:text-2xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-xs sm:text-sm">© 2024 Burhan Kapdawala. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(reveal => {
+            revealObserver.observe(reveal);
+        });
+
+        // Active navigation link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-white');
+                link.classList.add('text-gray-300');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active', 'text-white');
+                    link.classList.remove('text-gray-300');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
