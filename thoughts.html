@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>burhan's website!</title>
-  <meta name="description" content="burhan kapdawala — backend & platform engineer. distributed systems, database internals, and cloud infrastructure.">
+  <title>burhan's thoughts!</title>
+  <meta name="description" content="thoughts and writing by burhan kapdawala.">
   <style>
     :root {
       --color-bg: #f4f1ea;
@@ -92,12 +92,6 @@
       color: var(--color-accent);
     }
 
-    nav a.disabled {
-      pointer-events: none;
-      opacity: 0.4;
-      border-bottom-style: dotted;
-    }
-
     #toggleTheme {
       font-size: 1rem;
       background: none;
@@ -130,25 +124,8 @@
 
     h2 {
       font-size: 1.2rem;
-      margin: 1.75rem 0 0.5rem;
+      margin: 0 0 0.5rem;
       color: var(--color-accent);
-    }
-
-    h2:first-child {
-      margin-top: 0;
-    }
-
-    ul {
-      margin: 0.25rem 0 0;
-      padding-left: 1.35rem;
-    }
-
-    li {
-      margin-bottom: 0.6rem;
-    }
-
-    li:last-child {
-      margin-bottom: 0;
     }
 
     a {
@@ -190,8 +167,8 @@
       <div class="header">
         <div class="name" id="nameSpinner">burhan kapdawala</div>
         <nav aria-label="Main navigation">
-          <a href="index.html" aria-current="page">about</a>
-          <a href="thoughts.html">thoughts</a>
+          <a href="index.html">about</a>
+          <a href="thoughts.html" aria-current="page">thoughts</a>
           <button id="toggleTheme" aria-label="Toggle color theme">☀️</button>
         </nav>
       </div>
@@ -199,96 +176,12 @@
     </header>
 
     <main class="paper">
-      <section aria-labelledby="about-heading">
-        <h2 id="about-heading">about me</h2>
-        <ul>
-          <li>
-            i'm a backend &amp; platform engineer from india. i've spent the last
-            3+ years building distributed systems, poking at database internals,
-            and running cloud infrastructure end-to-end. outside of work you'll
-            find me solving algorithmic puzzles or at taekwondo practice.
-          </li>
-          <li>
-            you can reach me at burhankapdawala[that little symbol that usually
-            goes here]icloud.com!
-          </li>
-          <li>
-            i'm also on <a href="https://github.com/burhankapadia18">github</a>
-            and <a href="https://www.linkedin.com/in/burhankapdawala007">linkedin</a>.
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="experience-heading">
-        <h2 id="experience-heading">experience</h2>
-        <ul>
-          <li>
-            i'm an SDE-2 (backend &amp; platform) at asymmetric labs now! i own
-            the backend deployment platform — github actions pipelines shipping
-            docker images to AWS ECS across regions — plus a self-hosted mongoDB
-            replica set, redis, rabbitmq, and a typesense search cluster.
-          </li>
-          <li>
-            i was an SDE-2 on the core database team at
-            <a href="https://endee.io/">endee.io</a> — i worked on a vector
-            database in C++! read/write separation, a kafka-backed WAL,
-            backup/restore, and HNSW index resets.
-          </li>
-          <li>
-            i was a software engineer at
-            <a href="https://www.workllama.com/">workllama</a> — i migrated core
-            microservices from flask to fastAPI for big latency wins, and built
-            LLM + RAG workflows for a conversational AI agent.
-          </li>
-          <li>
-            i was an SDE-1 at <a href="https://skylarklabs.ai/">skylark labs</a>
-            — i built a real-time CCTV video-analytics pipeline for an iDEX
-            defense project and ran the microservices on amazon ECS.
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="hire-heading">
-        <h2 id="hire-heading">hire me</h2>
-        <ul>
-          <li>
-            i like systems problems: database internals (WALs, replication),
-            distributed consensus, and making slow APIs fast. python is my
-            first language, C++ is my favourite one.
-          </li>
-          <li>
-            i enjoy owning things end-to-end — from the fastAPI service all the
-            way down to the CI/CD pipeline and the AWS footprint it runs on. if
-            it pages at 3am, i want to know how it works.
-          </li>
-          <li>
-            i'm an indian citizen based in bangalore, with work authorization in
-            india.
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="trivia-heading">
-        <h2 id="trivia-heading">projects &amp; trivia</h2>
-        <ul>
-          <li>
-            i built <a href="https://github.com/burhankapadia18/raftkv">raftkv</a>
-            — a fault-tolerant distributed key-value store in C++/go with raft
-            consensus, gRPC, and WAL durability. consensus is fun when it's your
-            own nodes disagreeing!
-          </li>
-          <li>
-            i used to do a lot of competitive programming: 4★ on
-            <a href="https://www.codechef.com/users/burhank0018">codechef</a>
-            (max rating 1846, 52nd globally in the feb 2021 long challenge) and
-            300+ problems on
-            <a href="https://leetcode.com/yellow_snowman/">leetcode</a>.
-          </li>
-          <li>
-            i hold a black belt (dan-I) in taekwondo, so i am fully qualified to
-            kick servers that misbehave. i don't, though. usually.
-          </li>
-        </ul>
+      <section aria-labelledby="thoughts-heading">
+        <h2 id="thoughts-heading">thoughts</h2>
+        <p>
+          nothing here yet! i'm still figuring out what's worth writing about.
+          probably databases. come back later :)
+        </p>
       </section>
     </main>
 
