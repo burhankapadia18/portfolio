@@ -1,0 +1,306 @@
+/* long-form pages (raftkv, thoughts): a reading measure with technical figures. */
+
+.article {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+}
+
+/* ---- title block ---- */
+.article-head {
+  display: grid;
+  gap: var(--space-5);
+  padding-block: clamp(3rem, 2rem + 4vw, 5rem) var(--space-7);
+}
+
+.article-head__sub {
+  font-size: var(--text-lg);
+  color: var(--muted);
+  max-width: 40ch;
+}
+
+.article-head__meta {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.article-head__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-control);
+  padding: 0.15rem var(--space-2);
+}
+
+/* ---- sections ---- */
+.article section {
+  padding-block: var(--space-7);
+  border-top: 1px solid var(--hairline);
+}
+
+.article section > h2 {
+  font-size: var(--display-sm);
+  margin-bottom: var(--space-4);
+}
+
+.article p + p {
+  margin-top: var(--space-4);
+}
+
+.figure {
+  margin-block: var(--space-5);
+}
+
+/* ---- architecture diagram ---- */
+.diagram {
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  padding: var(--space-4);
+}
+
+.diagram svg {
+  min-width: 620px;
+  width: 100%;
+  height: auto;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.legend i {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-right: 0.5em;
+  border-radius: 2px;
+  vertical-align: -0.05em;
+}
+
+.legend .sw-engine {
+  background: var(--accent);
+}
+
+.legend .sw-sidecar {
+  background: var(--ink);
+}
+
+/* ---- write path steps ---- */
+.steps {
+  list-style: none;
+  counter-reset: step;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 3rem;
+  max-width: var(--measure);
+}
+
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.steps b {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---- durability files: three columns, hairline tops, no boxes ---- */
+.files {
+  display: grid;
+  gap: var(--space-5);
+  margin: var(--space-5) 0;
+}
+
+.files article {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.files h3 {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.files p {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 40rem) {
+  .files {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- read cost comparison ---- */
+.compare {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  margin-block: var(--space-5);
+  border-radius: var(--radius-panel);
+  background: var(--surface-2);
+}
+
+.compare__vs {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.compare .stat__num {
+  font-family: var(--font-mono);
+  font-size: var(--display-md);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.compare .stat__num small {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.3em;
+}
+
+.compare .stat__label {
+  margin-top: var(--space-2);
+  color: var(--ink);
+  font-size: var(--text-sm);
+}
+
+.compare .stat__sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+@media (min-width: 40rem) {
+  .compare {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+/* ---- benchmark table ---- */
+.table-scroll {
+  overflow-x: auto;
+  margin-block: var(--space-5) var(--space-3);
+}
+
+table {
+  width: 100%;
+  min-width: 30rem;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--muted);
+  padding-bottom: var(--space-3);
+}
+
+th {
+  text-align: left;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  color: var(--muted);
+  padding: 0 var(--space-4) var(--space-2) 0;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+td {
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--body);
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+th.num,
+td.num {
+  text-align: right;
+  padding-right: 0;
+}
+
+td.num {
+  color: var(--ink);
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+/* ---- empty state (thoughts) ---- */
+.empty {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  margin-top: var(--space-6);
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+
+.empty p {
+  color: var(--body);
+}
+
+.empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

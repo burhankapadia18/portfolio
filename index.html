@@ -1,557 +1,251 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>burhan's website!</title>
-  <meta name="description" content="burhan kapdawala — backend & platform engineer. distributed systems, database internals, and cloud infrastructure.">
-  <style>
-    :root {
-      --color-bg: #f2eee2;
-      --color-paper: #fffdf6;
-      --color-text: #29251c;
-      --color-muted: #6b655c;
-      --color-border: #d8d2c4;
-      --color-rule: #9d9482;
-      --color-link: #1a5fb4;
-      --color-accent: #b45309;
-      --grid-line: rgba(26, 95, 180, 0.07);
-      --grain-opacity: 0.05;
-      --shadow-paper: 0 1px 3px rgba(42, 39, 35, 0.08), 0 10px 28px rgba(42, 39, 35, 0.07);
-      --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-      --duration-spin: 600ms;
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    [data-theme="dark"] {
-      --color-bg: #191813;
-      --color-paper: #26241d;
-      --color-text: #e8e4da;
-      --color-muted: #a39c8e;
-      --color-border: #3b382f;
-      --color-rule: #5b564a;
-      --color-link: #7cb2f0;
-      --color-accent: #f0a860;
-      --grid-line: rgba(124, 178, 240, 0.055);
-      --grain-opacity: 0.06;
-      --shadow-paper: 0 1px 3px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      background: var(--color-bg);
-    }
-
-    body {
-      margin: 0;
-      font-family: Charter, Georgia, 'Times New Roman', serif;
-      font-size: 1.0625rem;
-      line-height: 1.65;
-      color: var(--color-text);
-      background-color: var(--color-bg);
-      background-image:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-      background-size: 24px 24px;
-      transition: background-color 200ms ease, color 200ms ease;
-    }
-
-    /* paper grain over everything, never intercepts input */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 140px 140px;
-      opacity: var(--grain-opacity);
-    }
-
-    [data-theme="dark"] body::after {
-      filter: invert(1);
-    }
-
-    ::selection {
-      background: color-mix(in srgb, var(--color-accent) 28%, transparent);
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    .container {
-      max-width: 42rem;
-      margin: 0 auto;
-      padding: clamp(1rem, 4vw, 2.5rem) clamp(0.75rem, 3vw, 1.5rem);
-    }
-
-    .header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      padding: 0 0.25rem;
-    }
-
-    .name {
-      font-size: 1.55rem;
-      font-weight: bold;
-      letter-spacing: -0.015em;
-      cursor: pointer;
-      display: inline-block;
-      user-select: none;
-      transition: transform var(--duration-spin) cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .name.spinning {
-      transform: rotate(360deg);
-    }
-
-    nav {
-      display: flex;
-      align-items: baseline;
-      gap: 1.1rem;
-    }
-
-    nav a {
-      position: relative;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      letter-spacing: 0.02em;
-      color: var(--color-text);
-      text-decoration: none;
-      padding-bottom: 3px;
-      transition: color 150ms ease;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 2px;
-      background: var(--color-accent);
-      transform: scaleX(0.3);
-      transform-origin: left;
-      transition: transform 300ms var(--ease-out-expo);
-    }
-
-    nav a:hover,
-    nav a:focus-visible {
-      color: var(--color-accent);
-    }
-
-    nav a:hover::after,
-    nav a:focus-visible::after,
-    nav a[aria-current="page"]::after {
-      transform: scaleX(1);
-    }
-
-    nav a[aria-current="page"] {
-      color: var(--color-accent);
-    }
-
-    nav a.disabled {
-      pointer-events: none;
-      opacity: 0.4;
-    }
-
-    nav a.disabled::after {
-      background: repeating-linear-gradient(90deg, var(--color-rule) 0 4px, transparent 4px 8px);
-      transform: scaleX(1);
-    }
-
-    #toggleTheme {
-      font-family: var(--font-mono);
-      font-size: 0.95rem;
-      background: var(--color-paper);
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-      border-radius: 999px;
-      padding: 0.15rem 0.55rem;
-      cursor: pointer;
-      line-height: 1.4;
-      box-shadow: 0 1px 0 var(--color-border);
-      transition: transform 150ms ease, box-shadow 150ms ease;
-    }
-
-    #toggleTheme:hover {
-      transform: translateY(-1px);
-    }
-
-    #toggleTheme:active {
-      transform: translateY(0) scale(0.94);
-      box-shadow: none;
-    }
-
-    /* ledger-style double rule */
-    .header-rule {
-      border: none;
-      height: 4px;
-      border-top: 2px solid var(--color-rule);
-      border-bottom: 1px solid var(--color-border);
-      margin: 0.9rem 0 1.75rem;
-    }
-
-    .paper {
-      position: relative;
-      background: var(--color-paper);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      box-shadow: var(--shadow-paper);
-      padding: clamp(1.25rem, 4vw, 2.25rem);
-      transition: background 200ms ease, border-color 200ms ease;
-    }
-
-    /* second sheet peeking out underneath */
-    .paper::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: var(--color-paper);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      transform: rotate(-0.7deg) translate(-6px, 7px);
-      opacity: 0.65;
-    }
-
-    /* drafting corner tick */
-    .paper::after {
-      content: '';
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 14px;
-      height: 14px;
-      border-top: 2px solid var(--color-accent);
-      border-right: 2px solid var(--color-accent);
-      opacity: 0.5;
-    }
-
-    main {
-      counter-reset: sec;
-    }
-
-    section {
-      counter-increment: sec;
-    }
-
-    h2 {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      font-size: 1.15rem;
-      margin: 2rem 0 0.65rem;
-      color: var(--color-text);
-    }
-
-    h2::before {
-      content: counter(sec, decimal-leading-zero) ' /';
-      content: counter(sec, decimal-leading-zero) ' /' / '';
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: normal;
-      letter-spacing: 0.06em;
-      color: var(--color-accent);
-    }
-
-    h2::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--color-border);
-      transform: translateY(-0.18em);
-    }
-
-    h2:first-child {
-      margin-top: 0;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0.25rem 0 0;
-      padding-left: 1.5rem;
-    }
-
-    li {
-      position: relative;
-      margin-bottom: 0.65rem;
-    }
-
-    li::before {
-      content: '▸';
-      content: '▸' / '';
-      position: absolute;
-      left: -1.5rem;
-      top: 0.2em;
-      font-family: var(--font-mono);
-      font-size: 0.8em;
-      color: var(--color-accent);
-      opacity: 0.8;
-    }
-
-    li:last-child {
-      margin-bottom: 0;
-    }
-
-    a {
-      color: var(--color-link);
-      text-decoration-color: color-mix(in srgb, var(--color-link) 40%, transparent);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-      transition: color 150ms ease, text-decoration-color 150ms ease;
-    }
-
-    a:hover,
-    a:focus-visible {
-      color: var(--color-accent);
-      text-decoration-color: currentColor;
-      text-decoration-thickness: 2px;
-    }
-
-    .footer-rule {
-      border: none;
-      height: 4px;
-      border-top: 1px solid var(--color-border);
-      border-bottom: 2px solid var(--color-rule);
-      margin: 1.75rem 0 0.85rem;
-    }
-
-    footer {
-      text-align: center;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.01em;
-      color: var(--color-muted);
-      padding-bottom: 1rem;
-    }
-
-    footer::before {
-      content: '$ ';
-      content: '$ ' / '';
-      color: var(--color-accent);
-    }
-
-    footer::after {
-      content: '▮';
-      content: '▮' / '';
-      margin-left: 0.35rem;
-      color: var(--color-accent);
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      @keyframes rise {
-        from {
-          opacity: 0;
-          transform: translateY(14px);
-        }
-      }
-
-      @keyframes fade-in {
-        from {
-          opacity: 0;
-        }
-      }
-
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
-
-      header {
-        animation: rise 550ms var(--ease-out-expo) backwards;
-      }
-
-      .paper {
-        animation: rise 550ms var(--ease-out-expo) 90ms backwards;
-      }
-
-      main section {
-        animation: fade-in 500ms ease backwards;
-      }
-
-      main section:nth-of-type(1) { animation-delay: 200ms; }
-      main section:nth-of-type(2) { animation-delay: 280ms; }
-      main section:nth-of-type(3) { animation-delay: 360ms; }
-      main section:nth-of-type(4) { animation-delay: 440ms; }
-
-      .footer-rule,
-      footer {
-        animation: fade-in 500ms ease 520ms backwards;
-      }
-
-      footer::after {
-        animation: blink 1.1s steps(1) infinite;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .name,
-      #toggleTheme,
-      body,
-      .paper,
-      nav a,
-      nav a::after,
-      a {
-        transition: none;
-      }
-    }
-  </style>
+  <title>burhan kapdawala</title>
+  <meta name="description" content="burhan kapdawala, backend and platform engineer in bangalore. distributed systems, database internals, and cloud infrastructure.">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="burhan kapdawala">
+  <meta property="og:description" content="backend and platform engineer. distributed systems, database internals, and cloud infrastructure.">
+  <meta property="og:url" content="https://burhankapadia18.github.io/portfolio/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171717'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='system-ui,sans-serif' font-size='19' font-weight='500' fill='%23fafafa'%3Eb%3C/text%3E%3C/svg%3E">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/home.css">
 </head>
 
 <body>
+  <a class="skip-link" href="#main">skip to content</a>
   <div class="container">
-    <header>
-      <div class="header">
-        <div class="name" id="nameSpinner">burhan kapdawala</div>
-        <nav aria-label="Main navigation">
-          <a href="index.html" aria-current="page">about</a>
-          <a href="thoughts.html">thoughts</a>
-          <a href="raftkv.html">raftkv</a>
-          <button id="toggleTheme" aria-label="Toggle color theme">☀️</button>
-        </nav>
-      </div>
-      <hr class="header-rule">
+    <header class="site-nav">
+      <a class="brand" href="index.html">burhan kapdawala</a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" aria-current="page">about</a></li>
+          <li><a href="thoughts.html">thoughts</a></li>
+          <li><a href="raftkv.html">raftkv</a></li>
+          <li>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="switch to dark theme">
+              <span class="theme-toggle__disc" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <main class="paper">
-      <section aria-labelledby="about-heading">
-        <h2 id="about-heading">about me</h2>
-        <ul>
-          <li>
-            i'm a backend &amp; platform engineer from india. i've spent the last
-            3+ years building distributed systems, poking at database internals,
-            and running cloud infrastructure end-to-end. outside of work you'll
-            find me solving algorithmic puzzles or at taekwondo practice.
-          </li>
-          <li>
-            you can reach me at burhankapdawala[that little symbol that usually
-            goes here]icloud.com!
-          </li>
-          <li>
-            i'm also on <a href="https://github.com/burhankapadia18">github</a>
-            and <a href="https://www.linkedin.com/in/burhankapdawala007">linkedin</a>.
-          </li>
-        </ul>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero__copy">
+          <h1 id="hero-heading" class="rise" style="--i:0">i build backends, and the platforms they run on.</h1>
+          <p class="hero__sub rise" style="--i:1">
+            backend &amp; platform engineer in bangalore. three years of distributed
+            systems, database internals, and cloud infrastructure.
+          </p>
+          <div class="hero__actions rise" style="--i:2">
+            <a class="btn btn--primary" href="raftkv.html">read the raftkv breakdown</a>
+            <a class="btn btn--secondary" href="https://github.com/burhankapadia18">github</a>
+          </div>
+        </div>
+
+        <div class="hero__visual rise" style="--i:3">
+          <figure class="term" style="margin:0">
+            <figcaption class="term__bar">
+              <span>raftkv</span>
+              <span>3 nodes, 1 leader</span>
+            </figcaption>
+            <pre><span class="prompt">$</span> docker compose up -d
+<span class="comment"># three nodes come up and elect a leader.</span>
+<span class="prompt">$</span> curl -X PUT localhost:8080/kv/hello -d 'world'
+<span class="out">{"ok":true}</span>
+<span class="prompt">$</span> docker compose kill node1
+<span class="comment"># leader gone. the other two re-elect.</span>
+<span class="prompt">$</span> curl 'localhost:8081/kv/hello?consistency=linearizable'
+<span class="out">world</span></pre>
+          </figure>
+        </div>
       </section>
 
-      <section aria-labelledby="experience-heading">
-        <h2 id="experience-heading">experience</h2>
-        <ul>
-          <li>
-            i'm an SDE-2 (backend &amp; platform) at asymmetric labs now! i own
-            the backend deployment platform — github actions pipelines shipping
-            docker images to AWS ECS across regions — plus a self-hosted mongoDB
-            replica set, redis, rabbitmq, and a typesense search cluster.
-          </li>
-          <li>
-            i was an SDE-2 on the core database team at
-            <a href="https://endee.io/">endee.io</a> — i worked on a vector
-            database in C++! read/write separation, a kafka-backed WAL,
-            backup/restore, and HNSW index resets.
-          </li>
-          <li>
-            i was a software engineer at
-            <a href="https://www.workllama.com/">workllama</a> — i migrated core
-            microservices from flask to fastAPI for big latency wins, and built
-            LLM + RAG workflows for a conversational AI agent.
-          </li>
-          <li>
-            i was an SDE-1 at <a href="https://skylarklabs.ai/">skylark labs</a>
-            — i built a real-time CCTV video-analytics pipeline for an iDEX
-            defense project and ran the microservices on amazon ECS.
-          </li>
-        </ul>
+      <section class="section reveal" aria-labelledby="experience-heading">
+        <h2 id="experience-heading" class="section__title">experience.</h2>
+        <div class="xp">
+          <article class="xp-row">
+            <div class="xp-row__org">
+              <span>asymmetric labs</span>
+              <span class="xp-row__now">now</span>
+            </div>
+            <div>
+              <h3>SDE-2, backend &amp; platform</h3>
+              <p>
+                i own the backend deployment platform: github actions pipelines
+                shipping docker images to AWS ECS across regions, plus a self-hosted
+                mongoDB replica set, redis, rabbitmq, and a typesense search cluster.
+              </p>
+            </div>
+          </article>
+
+          <article class="xp-row">
+            <div class="xp-row__org">
+              <a href="https://endee.io/">endee.io</a>
+            </div>
+            <div>
+              <h3>SDE-2, core database team</h3>
+              <p>
+                i worked on a vector database in C++! read/write separation, a
+                kafka-backed WAL, backup/restore, and HNSW index resets.
+              </p>
+            </div>
+          </article>
+
+          <article class="xp-row">
+            <div class="xp-row__org">
+              <a href="https://www.workllama.com/">workllama</a>
+            </div>
+            <div>
+              <h3>software engineer</h3>
+              <p>
+                i migrated core microservices from flask to fastAPI for big latency
+                wins, and built LLM + RAG workflows for a conversational AI agent.
+              </p>
+            </div>
+          </article>
+
+          <article class="xp-row">
+            <div class="xp-row__org">
+              <a href="https://skylarklabs.ai/">skylark labs</a>
+            </div>
+            <div>
+              <h3>SDE-1</h3>
+              <p>
+                i built a real-time CCTV video-analytics pipeline for an iDEX defense
+                project and ran the microservices on amazon ECS.
+              </p>
+            </div>
+          </article>
+        </div>
       </section>
 
-      <section aria-labelledby="hire-heading">
-        <h2 id="hire-heading">hire me</h2>
-        <ul>
-          <li>
-            i like systems problems: database internals (WALs, replication),
-            distributed consensus, and making slow APIs fast. python is my
-            first language, C++ is my favourite one.
-          </li>
-          <li>
-            i enjoy owning things end-to-end — from the fastAPI service all the
-            way down to the CI/CD pipeline and the AWS footprint it runs on. if
-            it pages at 3am, i want to know how it works.
-          </li>
-          <li>
-            i'm an indian citizen based in bangalore, with work authorization in
-            india.
-          </li>
-        </ul>
+      <section class="section reveal" aria-labelledby="hire-heading">
+        <h2 id="hire-heading" class="section__title">hire me.</h2>
+        <div class="trio">
+          <div class="trio__cell">
+            <p class="trio__statement">
+              i like systems problems: database internals, distributed consensus,
+              and making slow APIs fast.
+            </p>
+            <p>WALs, replication, elections, and the p99 that nobody can explain.</p>
+          </div>
+
+          <div class="trio__cell trio__cell--tint">
+            <h3>languages</h3>
+            <dl class="trio__langs">
+              <div>
+                <dt>first</dt>
+                <dd>python</dd>
+              </div>
+              <div>
+                <dt>favourite</dt>
+                <dd>C++</dd>
+              </div>
+              <div>
+                <dt>also</dt>
+                <dd>go</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="trio__cell trio__cell--wide trio__cell--surface">
+            <div class="trio__body">
+              <p>
+                i enjoy owning things end-to-end, from the fastAPI service all the way
+                down to the CI/CD pipeline and the AWS footprint it runs on. if it
+                pages at 3am, i want to know how it works.
+              </p>
+              <p>
+                i'm an indian citizen based in bangalore, with work authorization in
+                india. you can reach me at
+                burhankapdawala[that little symbol that usually goes here]icloud.com!
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section aria-labelledby="trivia-heading">
-        <h2 id="trivia-heading">projects &amp; trivia</h2>
-        <ul>
-          <li>
-            i built <a href="https://github.com/burhankapadia18/raftkv">raftkv</a>
-            — a fault-tolerant distributed key-value store in C++/go with raft
-            consensus, gRPC, and WAL durability. consensus is fun when it's your
-            own nodes disagreeing! the <a href="raftkv.html">full breakdown</a>
-            has diagrams and benchmarks.
-          </li>
-          <li>
-            i used to do a lot of competitive programming: 4★ on
-            <a href="https://www.codechef.com/users/burhank0018">codechef</a>
-            (max rating 1846, 52nd globally in the feb 2021 long challenge) and
-            300+ problems on
-            <a href="https://leetcode.com/yellow_snowman/">leetcode</a>.
-          </li>
-          <li>
-            i hold a black belt (dan-I) in taekwondo, so i am fully qualified to
-            kick servers that misbehave. i don't, though. usually.
-          </li>
-        </ul>
+      <section class="section reveal" aria-labelledby="projects-heading">
+        <h2 id="projects-heading" class="section__title">projects &amp; trivia.</h2>
+
+        <div class="feature">
+          <div class="feature__copy">
+            <h3 class="feature__title"><a href="raftkv.html">raftkv</a></h3>
+            <p>
+              a fault-tolerant distributed key-value store in C++ and go: raft
+              consensus, gRPC, and WAL durability. consensus is fun when it's your
+              own nodes disagreeing!
+            </p>
+            <ul class="feature__stack" aria-label="Technologies used">
+              <li>c++</li>
+              <li>go</li>
+              <li>hashicorp raft</li>
+              <li>gRPC</li>
+              <li>boltdb</li>
+            </ul>
+            <p><a href="https://github.com/burhankapadia18/raftkv">source on github</a></p>
+          </div>
+
+          <dl class="stats">
+            <div class="stat">
+              <dt class="stat__label">local reads, 3-node cluster</dt>
+              <dd class="stat__num">33,289<small>ops/s</small></dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">replicated writes, fsynced on a quorum</dt>
+              <dd class="stat__num">1,930<small>ops/s</small></dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">acknowledged writes lost when the leader dies</dt>
+              <dd class="stat__num">0</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="elsewhere">
+          <div>
+            <h3>competitive programming</h3>
+            <p>
+              4★ on <a href="https://www.codechef.com/users/burhank0018">codechef</a>
+              (max rating 1846, 52nd globally in the feb 2021 long challenge) and
+              300+ problems on <a href="https://leetcode.com/yellow_snowman/">leetcode</a>.
+            </p>
+          </div>
+          <div>
+            <h3>taekwondo</h3>
+            <p>
+              black belt (dan-I), so i am fully qualified to kick servers that
+              misbehave. i don't, though. usually.
+            </p>
+          </div>
+        </div>
       </section>
     </main>
 
-    <hr class="footer-rule">
-    <footer>made with a text editor and mild perfectionism.</footer>
+    <footer class="site-footer">
+      <p class="site-footer__contact">
+        burhankapdawala[that little symbol that usually goes here]icloud.com
+      </p>
+      <ul class="site-footer__links">
+        <li><a href="https://github.com/burhankapadia18">github</a></li>
+        <li><a href="https://www.linkedin.com/in/burhankapdawala007">linkedin</a></li>
+      </ul>
+      <p class="site-footer__tagline">made with a text editor and mild perfectionism.</p>
+    </footer>
   </div>
 
-  <script>
-    (function () {
-      var STORAGE_KEY = 'theme';
-      var root = document.documentElement;
-      var toggle = document.getElementById('toggleTheme');
-
-      function apply(theme) {
-        root.setAttribute('data-theme', theme);
-        toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
-      }
-
-      var saved = null;
-      try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* private mode */ }
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      apply(saved || (prefersDark ? 'dark' : 'light'));
-
-      toggle.addEventListener('click', function () {
-        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        apply(next);
-        try { localStorage.setItem(STORAGE_KEY, next); } catch (e) { /* private mode */ }
-      });
-
-      var name = document.getElementById('nameSpinner');
-      name.addEventListener('click', function () {
-        if (name.classList.contains('spinning')) return;
-        name.classList.add('spinning');
-        setTimeout(function () { name.classList.remove('spinning'); }, 650);
-      });
-    })();
-  </script>
+  <script src="scripts/site.js" defer></script>
 </body>
 </html>

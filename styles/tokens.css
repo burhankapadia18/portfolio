@@ -1,0 +1,123 @@
+/* design tokens. one accent, one gray family, one radius system.
+   see DESIGN.md for the reasoning behind every value. */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --canvas: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f2f2f2;
+  --surface-code: #171717;
+  --code-text: #ededed;
+  --code-muted: #8a8a8a;
+  --code-hairline: rgba(255, 255, 255, 0.1);
+
+  /* ink ladder */
+  --ink: #171717;
+  --body: #4a4a4a;
+  --muted: #6f6f6f;
+  --hairline: #e6e6e6;
+  --hairline-strong: #c9c9c9;
+
+  /* the single accent */
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-soft: rgba(194, 65, 12, 0.08);
+  --on-accent: #ffffff;
+
+  /* inverted (used by primary buttons and the code surface) */
+  --inverse-ink: #fafafa;
+  --inverse-body: #b4b4b4;
+  --inverse-muted: #7a7a7a;
+
+  --selection-bg: #171717;
+  --selection-fg: #fafafa;
+
+  /* elevation: stacked micro-offsets + hairline ring, never one heavy drop */
+  --shadow-1: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 16px rgba(0, 0, 0, 0.06);
+
+  /* type */
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --display-sm: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
+  --display-md: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  --display-lg: clamp(2.125rem, 1.5rem + 2.2vw, 3rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-body: 1.6;
+
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-mono: 0;
+
+  /* spacing: 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-section: clamp(4rem, 3rem + 4vw, 6rem);
+
+  /* shape: 6px on interactive elements, 10px on panels. nothing else. */
+  --radius-inline: 4px;
+  --radius-control: 6px;
+  --radius-panel: 10px;
+
+  /* layout */
+  --container: 64rem;
+  --measure: 62ch;
+  --nav-height: 4rem;
+
+  /* motion */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* z scale */
+  --z-nav: 10;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --canvas: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #181818;
+  --surface-code: #0f0f0f;
+  --code-text: #ededed;
+  --code-muted: #8a8a8a;
+  --code-hairline: rgba(255, 255, 255, 0.08);
+
+  --ink: #ededed;
+  --body: #a8a8a8;
+  --muted: #8a8a8a;
+  --hairline: #262626;
+  --hairline-strong: #3d3d3d;
+
+  --accent: #fb923c;
+  --accent-hover: #fdba74;
+  --accent-soft: rgba(251, 146, 60, 0.1);
+  --on-accent: #0a0a0a;
+
+  --inverse-ink: #0a0a0a;
+  --inverse-body: #4a4a4a;
+  --inverse-muted: #7a7a7a;
+
+  --selection-bg: #ededed;
+  --selection-fg: #0a0a0a;
+
+  --shadow-1: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.45);
+}
