@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>raftkv | burhan kapdawala</title>
   <meta name="description" content="raftkv: a fault-tolerant distributed key-value store. C++ storage engine, go raft sidecar, gRPC in between. architecture, write path, durability, and real benchmarks.">
-  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8f4e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1a16" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="article">
   <meta property="og:title" content="raftkv | burhan kapdawala">
   <meta property="og:description" content="a fault-tolerant distributed key-value store. C++ storage engine, go raft sidecar, gRPC in between.">
   <meta property="og:url" content="https://burhankapadia18.github.io/portfolio/raftkv.html">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171717'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='system-ui,sans-serif' font-size='19' font-weight='500' fill='%23fafafa'%3Eb%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13.5' fill='%23f6c453' stroke='%231d1b17' stroke-width='2.5'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='system-ui,sans-serif' font-size='18' font-weight='800' fill='%231d1b17'%3Eb%3C/text%3E%3C/svg%3E">
   <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})()</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Geist+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/article.css">
@@ -25,7 +25,10 @@
   <a class="skip-link" href="#main">skip to content</a>
   <div class="container">
     <header class="site-nav">
-      <a class="brand" href="index.html">burhan kapdawala</a>
+      <a class="brand" href="index.html">
+        <span class="brand__badge" aria-hidden="true">b</span>
+        <span class="brand__text">burhan kapdawala</span>
+      </a>
       <nav aria-label="Main navigation">
         <ul class="nav-links">
           <li><a href="index.html">about</a></li>
@@ -92,53 +95,61 @@
           <div class="diagram" role="img" aria-label="Architecture diagram: a client sends HTTP requests to the C++ engine on port 8080. The engine proposes commands over gRPC to the go sidecar on port 8088, which replicates them via raft to node 2 and node 3. The sidecar calls back into the engine to apply committed entries.">
             <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <defs>
-                <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0,0.5 L7.5,4 L0,7.5" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+                <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M1 1 8.5 5 1 9" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </marker>
               </defs>
-              <g style="font-family: var(--font-mono)">
-                <rect x="16" y="140" width="88" height="56" rx="6" fill="var(--surface-2)" stroke="var(--hairline-strong)" stroke-width="1.2"/>
-                <text x="60" y="173" font-size="13" fill="var(--ink)" text-anchor="middle">client</text>
+              <g stroke="var(--line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="16" y="140" width="88" height="56" rx="12" fill="var(--coral)"/>
+                <circle cx="48" cy="163" r="2.6" fill="var(--line)" stroke="none"/>
+                <circle cx="72" cy="163" r="2.6" fill="var(--line)" stroke="none"/>
+                <path d="M52 173q8 6 16 0" fill="none"/>
 
-                <line x1="104" y1="168" x2="164" y2="168" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#arr)"/>
-                <text x="134" y="156" font-size="10" fill="var(--muted)" text-anchor="middle">http</text>
+                <line x1="106" y1="168" x2="164" y2="168" marker-end="url(#arr)"/>
 
-                <rect x="170" y="36" width="330" height="272" rx="10" fill="none" stroke="var(--hairline-strong)" stroke-width="1" stroke-dasharray="5 4"/>
-                <text x="186" y="60" font-size="11" fill="var(--muted)">node 1 (leader)</text>
+                <rect x="170" y="36" width="330" height="272" rx="16" fill="none" stroke-dasharray="7 7" stroke-width="2"/>
 
-                <rect x="192" y="88" width="134" height="176" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
-                <text x="259" y="118" font-size="13" fill="var(--ink)" text-anchor="middle">c++ engine</text>
-                <text x="259" y="136" font-size="10" fill="var(--muted)" text-anchor="middle">:8080</text>
-                <line x1="206" y1="152" x2="312" y2="152" stroke="var(--hairline)" stroke-width="1"/>
-                <text x="259" y="176" font-size="10.5" fill="var(--body)" text-anchor="middle">in-memory map</text>
-                <text x="259" y="196" font-size="10.5" fill="var(--body)" text-anchor="middle">kv.wal</text>
-                <text x="259" y="216" font-size="10.5" fill="var(--body)" text-anchor="middle">kv.db</text>
+                <rect x="192" y="88" width="134" height="176" rx="12" fill="var(--accent-soft)"/>
+                <path d="M206 152h106" stroke-width="2"/>
 
-                <rect x="352" y="88" width="128" height="176" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>
-                <text x="416" y="118" font-size="13" fill="var(--ink)" text-anchor="middle">go sidecar</text>
-                <text x="416" y="136" font-size="10" fill="var(--muted)" text-anchor="middle">:8088</text>
-                <line x1="366" y1="152" x2="466" y2="152" stroke="var(--hairline)" stroke-width="1"/>
-                <text x="416" y="176" font-size="10.5" fill="var(--body)" text-anchor="middle">hashicorp raft</text>
-                <text x="416" y="196" font-size="10.5" fill="var(--body)" text-anchor="middle">elections</text>
-                <text x="416" y="216" font-size="10.5" fill="var(--body)" text-anchor="middle">logs.dat</text>
+                <rect x="352" y="88" width="128" height="176" rx="12" fill="var(--sky)"/>
+                <path d="M366 152h100" stroke-width="2"/>
 
-                <line x1="326" y1="148" x2="346" y2="148" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#arr)"/>
-                <line x1="352" y1="204" x2="332" y2="204" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#arr)"/>
-                <text x="339" y="140" font-size="9.5" fill="var(--muted)" text-anchor="middle">propose</text>
-                <text x="339" y="228" font-size="9.5" fill="var(--muted)" text-anchor="middle">apply</text>
-                <text x="339" y="292" font-size="10" fill="var(--muted)" text-anchor="middle">gRPC on loopback</text>
+                <line x1="328" y1="146" x2="346" y2="146" marker-end="url(#arr)"/>
+                <line x1="350" y1="206" x2="332" y2="206" marker-end="url(#arr)"/>
 
-                <rect x="574" y="70" width="164" height="90" rx="10" fill="none" stroke="var(--hairline-strong)" stroke-width="1" stroke-dasharray="5 4"/>
-                <text x="590" y="94" font-size="11" fill="var(--muted)">node 2</text>
-                <text x="656" y="126" font-size="10.5" fill="var(--ink)" text-anchor="middle">engine + sidecar</text>
+                <rect x="574" y="70" width="164" height="90" rx="16" fill="var(--surface-2)" stroke-dasharray="7 7" stroke-width="2"/>
+                <rect x="574" y="192" width="164" height="90" rx="16" fill="var(--surface-2)" stroke-dasharray="7 7" stroke-width="2"/>
 
-                <rect x="574" y="192" width="164" height="90" rx="10" fill="none" stroke="var(--hairline-strong)" stroke-width="1" stroke-dasharray="5 4"/>
-                <text x="590" y="216" font-size="11" fill="var(--muted)">node 3</text>
-                <text x="656" y="248" font-size="10.5" fill="var(--ink)" text-anchor="middle">engine + sidecar</text>
-
-                <line x1="480" y1="140" x2="568" y2="116" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#arr)"/>
-                <line x1="480" y1="212" x2="568" y2="236" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#arr)"/>
-                <text x="528" y="102" font-size="9.5" fill="var(--muted)" text-anchor="middle">raft replication</text>
+                <path d="M482 140c30-10 56-18 86-24" fill="none" marker-end="url(#arr)"/>
+                <path d="M482 212c30 10 56 18 86 24" fill="none" marker-end="url(#arr)"/>
+              </g>
+              <g style="font-family: var(--font-sans)" fill="var(--ink)">
+                <text x="60" y="130" font-size="13" font-weight="700" text-anchor="middle">client</text>
+                <text x="259" y="118" font-size="14" font-weight="700" text-anchor="middle">c++ engine</text>
+                <text x="416" y="118" font-size="14" font-weight="700" text-anchor="middle" fill="#1d1b17">go sidecar</text>
+                <text x="656" y="126" font-size="12" font-weight="600" text-anchor="middle">engine + sidecar</text>
+                <text x="656" y="248" font-size="12" font-weight="600" text-anchor="middle">engine + sidecar</text>
+              </g>
+              <g style="font-family: var(--font-mono)" font-size="10.5">
+                <text x="259" y="136" fill="var(--muted)" text-anchor="middle">:8080</text>
+                <text x="416" y="136" fill="#1d1b17" text-anchor="middle" opacity="0.7">:8088</text>
+                <text x="259" y="178" fill="var(--body)" text-anchor="middle">in-memory map</text>
+                <text x="259" y="198" fill="var(--body)" text-anchor="middle">kv.wal</text>
+                <text x="259" y="218" fill="var(--body)" text-anchor="middle">kv.db</text>
+                <text x="416" y="178" fill="#1d1b17" text-anchor="middle">hashicorp raft</text>
+                <text x="416" y="198" fill="#1d1b17" text-anchor="middle">elections</text>
+                <text x="416" y="218" fill="#1d1b17" text-anchor="middle">logs.dat</text>
+              </g>
+              <g class="hand" style="font-family: var(--font-hand)" fill="var(--ink)" font-size="17" font-weight="600">
+                <text x="134" y="156" text-anchor="middle">http</text>
+                <text x="186" y="62">node 1 (leader)</text>
+                <text x="339" y="80" text-anchor="middle">propose</text>
+                <text x="339" y="282" text-anchor="middle">apply</text>
+                <text x="339" y="301" text-anchor="middle" font-size="14">gRPC on loopback</text>
+                <text x="590" y="94">node 2</text>
+                <text x="590" y="216">node 3</text>
+                <text x="518" y="98" text-anchor="middle" font-size="15">raft replication</text>
               </g>
             </svg>
           </div>
@@ -225,7 +236,7 @@
           see the latest committed write. certainty costs roughly 7x.
         </p>
         <div class="compare">
-          <div class="stat">
+          <div class="stat card--sky">
             <div class="stat__num">33,289<small>ops/s</small></div>
             <div class="stat__label">local reads</div>
             <div class="stat__sub">p50 0.33 ms</div>
@@ -312,6 +323,7 @@
         <h2 id="run-heading">run it</h2>
         <figure class="term figure" style="margin-inline:0">
           <figcaption class="term__bar">
+            <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span>shell</span>
             <span>3 nodes, 1 leader</span>
           </figcaption>

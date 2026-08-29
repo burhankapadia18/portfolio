@@ -1,60 +1,74 @@
-/* design tokens. one accent, one gray family, one radius system.
-   see DESIGN.md for the reasoning behind every value. */
+/* design tokens: paper, ink, one loud yellow, and a small box of crayons for the
+   drawings. hard offset shadows instead of blur. see DESIGN.md for the reasoning. */
 
 :root {
   color-scheme: light;
 
-  /* surfaces */
-  --canvas: #fafafa;
-  --surface: #ffffff;
-  --surface-2: #f2f2f2;
-  --surface-code: #171717;
-  --code-text: #ededed;
-  --code-muted: #8a8a8a;
-  --code-hairline: rgba(255, 255, 255, 0.1);
+  /* paper */
+  --canvas: #f8f4e8;
+  --canvas-2: #f3e7c6;
+  --surface: #fffdf6;
+  --surface-2: #f1eadb;
 
   /* ink ladder */
-  --ink: #171717;
-  --body: #4a4a4a;
-  --muted: #6f6f6f;
-  --hairline: #e6e6e6;
-  --hairline-strong: #c9c9c9;
+  --ink: #1d1b17;
+  --body: #3d3a33;
+  --muted: #6b665b;
+  --line: #1d1b17;
+  --line-soft: #cfc7b3;
 
-  /* the single accent */
-  --accent: #c2410c;
-  --accent-hover: #9a3412;
-  --accent-soft: rgba(194, 65, 12, 0.08);
-  --on-accent: #ffffff;
+  /* the loud one */
+  --accent: #f6c453;
+  --accent-deep: #e0a72a;
+  --accent-soft: #fbe6ad;
+  --accent-ink: #7a4f00;
+  --on-accent: #1d1b17;
 
-  /* inverted (used by primary buttons and the code surface) */
-  --inverse-ink: #fafafa;
-  --inverse-body: #b4b4b4;
-  --inverse-muted: #7a7a7a;
+  /* crayons: illustrations and tinted cards only */
+  --sky: #9fd3dd;
+  --sky-deep: #4f9fae;
+  --coral: #ee8264;
+  --coral-deep: #c95b3e;
+  --leaf: #7fae6f;
+  --leaf-deep: #4f7d43;
+  --navy: #33406b;
 
-  --selection-bg: #171717;
-  --selection-fg: #fafafa;
+  /* the one dark surface: the terminal */
+  --surface-code: #23211c;
+  --code-text: #f3eee0;
+  --code-muted: #9a9384;
+  --code-hairline: rgba(243, 238, 224, 0.12);
 
-  /* elevation: stacked micro-offsets + hairline ring, never one heavy drop */
-  --shadow-1: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 16px rgba(0, 0, 0, 0.06);
+  --inverse-ink: #f8f4e8;
+  --selection-bg: #f6c453;
+  --selection-fg: #1d1b17;
+
+  /* elevation: hard offset shadows in ink. no blur. */
+  --shadow-ink: #1d1b17;
+  --shadow-1: 2px 2px 0 var(--shadow-ink);
+  --shadow-2: 4px 4px 0 var(--shadow-ink);
+  --shadow-3: 6px 6px 0 var(--shadow-ink);
+  --stroke: 2px;
 
   /* type */
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Outfit', ui-rounded, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Comic Sans MS', 'Chalkboard SE', cursive;
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --display-sm: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
-  --display-md: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
-  --display-lg: clamp(2.125rem, 1.5rem + 2.2vw, 3rem);
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-hand: 1.375rem;
+  --display-sm: clamp(1.5rem, 1.3rem + 0.7vw, 1.875rem);
+  --display-md: clamp(2rem, 1.5rem + 1.6vw, 2.75rem);
+  --display-lg: clamp(2.5rem, 1.6rem + 3vw, 4rem);
 
-  --leading-tight: 1.08;
-  --leading-snug: 1.25;
+  --leading-tight: 1.02;
+  --leading-snug: 1.2;
   --leading-body: 1.6;
 
-  --tracking-display: -0.035em;
+  --tracking-display: -0.03em;
   --tracking-heading: -0.02em;
   --tracking-mono: 0;
 
@@ -67,57 +81,66 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --space-section: clamp(4rem, 3rem + 4vw, 6rem);
+  --space-section: clamp(4rem, 3rem + 4vw, 6.5rem);
 
-  /* shape: 6px on interactive elements, 10px on panels. nothing else. */
-  --radius-inline: 4px;
-  --radius-control: 6px;
-  --radius-panel: 10px;
+  /* shape: pills for controls, 16px for cards, 6px for inline bits */
+  --radius-inline: 6px;
+  --radius-control: 999px;
+  --radius-panel: 16px;
 
   /* layout */
-  --container: 64rem;
+  --container: 66rem;
   --measure: 62ch;
-  --nav-height: 4rem;
+  --nav-height: 4.5rem;
 
   /* motion */
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 600ms;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* z scale */
   --z-nav: 10;
+  --z-grain: 50;
 }
 
 [data-theme='dark'] {
   color-scheme: dark;
 
-  --canvas: #0a0a0a;
-  --surface: #111111;
-  --surface-2: #181818;
-  --surface-code: #0f0f0f;
-  --code-text: #ededed;
-  --code-muted: #8a8a8a;
-  --code-hairline: rgba(255, 255, 255, 0.08);
+  --canvas: #1c1a16;
+  --canvas-2: #23201a;
+  --surface: #2a2721;
+  --surface-2: #322e27;
 
-  --ink: #ededed;
-  --body: #a8a8a8;
-  --muted: #8a8a8a;
-  --hairline: #262626;
-  --hairline-strong: #3d3d3d;
+  --ink: #f3eee0;
+  --body: #cfc8b8;
+  --muted: #a39c8b;
+  --line: #f3eee0;
+  --line-soft: #4a453b;
 
-  --accent: #fb923c;
-  --accent-hover: #fdba74;
-  --accent-soft: rgba(251, 146, 60, 0.1);
-  --on-accent: #0a0a0a;
+  --accent: #f6c453;
+  --accent-deep: #e0a72a;
+  --accent-soft: #4a3b14;
+  --accent-ink: #f6c453;
+  --on-accent: #1d1b17;
 
-  --inverse-ink: #0a0a0a;
-  --inverse-body: #4a4a4a;
-  --inverse-muted: #7a7a7a;
+  --sky: #6fb2bf;
+  --sky-deep: #a9dde6;
+  --coral: #e67b5e;
+  --coral-deep: #f2a48d;
+  --leaf: #6f9d61;
+  --leaf-deep: #a6cf99;
+  --navy: #8d9bd1;
 
-  --selection-bg: #ededed;
-  --selection-fg: #0a0a0a;
+  --surface-code: #15140f;
+  --code-text: #f3eee0;
+  --code-muted: #8f887a;
+  --code-hairline: rgba(243, 238, 224, 0.12);
 
-  --shadow-1: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.45);
+  --inverse-ink: #1c1a16;
+  --selection-bg: #f6c453;
+  --selection-fg: #1d1b17;
+
+  --shadow-ink: #0b0a08;
 }

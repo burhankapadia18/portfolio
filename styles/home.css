@@ -1,10 +1,11 @@
-/* index.html: hero, experience rows, working-style trio, featured project. */
+/* index.html: hero with the node shelf, experience timeline, the hire-me trio,
+   featured project with big numbers, and two small extras. */
 
 /* ---- hero: split at desktop, stacked on mobile ---- */
 .hero {
   display: grid;
-  gap: var(--space-7);
-  padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) var(--space-section);
+  gap: var(--space-8);
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem) var(--space-section);
   align-items: center;
 }
 
@@ -14,66 +15,115 @@
 }
 
 .hero h1 {
-  max-width: 18ch;
+  max-width: 16ch;
 }
 
 .hero__sub {
   font-size: var(--text-lg);
-  color: var(--muted);
-  max-width: 38ch;
+  color: var(--body);
+  max-width: 36ch;
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
+/* the drawing sits on top of the terminal like things on a shelf */
 .hero__visual {
   min-width: 0;
+  display: grid;
+  gap: 0;
+}
+
+.shelf {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin: 0 auto -4px;
+  padding-inline: var(--space-4);
 }
 
 @media (min-width: 56rem) {
   .hero {
-    grid-template-columns: 7fr 5fr;
+    grid-template-columns: 6fr 5fr;
     gap: var(--space-8);
   }
 }
 
-/* ---- experience: label column + content rows, one hairline per row ---- */
+/* ---- experience: a dashed timeline with ink dots, org names in handwriting ---- */
 .xp {
+  position: relative;
   display: grid;
+  gap: var(--space-6);
+  padding-left: 2rem;
+}
+
+.xp::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.7rem;
+  bottom: 0.7rem;
+  border-left: var(--stroke) dashed var(--line);
 }
 
 .xp-row {
+  position: relative;
   display: grid;
   gap: var(--space-2) var(--space-6);
-  padding-block: var(--space-5);
-  border-bottom: 1px solid var(--hairline);
 }
 
-.xp-row:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+/* the dot on the line; the current role gets a filled yellow one */
+.xp-row::before {
+  content: '';
+  position: absolute;
+  left: calc(-2rem + 0.5rem - 8px + 1px);
+  top: 0.35rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: var(--stroke) solid var(--line);
+}
+
+.xp-row--now::before {
+  background: var(--accent);
 }
 
 .xp-row__org {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--muted);
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
 }
 
 .xp-row__org a {
   color: inherit;
-  text-decoration-color: var(--hairline);
+  font-weight: inherit;
+  text-decoration-color: var(--line-soft);
 }
 
 .xp-row__now {
+  display: inline-block;
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
-  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--on-accent);
+  background: var(--accent);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-control);
+  padding: 0.1rem 0.55rem;
+  transform: rotate(-3deg);
 }
 
 .xp-row h3 {
@@ -84,19 +134,22 @@
   .xp-row {
     grid-template-columns: 11rem 1fr;
   }
+
+  .xp-row__org {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
 }
 
-/* ---- working style: asymmetric trio, two tinted cells ---- */
+/* ---- hire me: three cards, two of them coloured in ---- */
 .trio {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-5);
 }
 
 .trio__cell {
-  padding: var(--space-5);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-panel);
-  background: var(--surface);
+  padding: var(--space-6);
   display: grid;
   align-content: space-between;
   gap: var(--space-5);
@@ -106,39 +159,34 @@
   grid-column: 1 / -1;
 }
 
-.trio__cell--tint {
-  background: var(--accent-soft);
-  border-color: transparent;
-}
-
-.trio__cell--surface {
-  background: var(--surface-2);
-  border-color: transparent;
-}
-
 .trio__statement {
   font-size: var(--display-sm);
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-heading);
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 700;
   max-width: 24ch;
+}
+
+.trio__cell--yellow p,
+.trio__cell--yellow h3 {
+  color: var(--on-accent);
 }
 
 .trio__langs {
   display: grid;
   gap: var(--space-2);
   margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 .trio__langs div {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: var(--space-3);
   padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1.5px dashed rgba(29, 27, 23, 0.35);
 }
 
 .trio__langs div:last-child {
@@ -147,13 +195,16 @@
 }
 
 .trio__langs dt {
-  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .trio__langs dd {
   margin: 0;
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .trio__cell--wide .trio__body {
@@ -163,7 +214,7 @@
 
 @media (min-width: 48rem) {
   .trio {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 2fr;
   }
 
   .trio__cell--wide .trio__body {
@@ -172,10 +223,10 @@
   }
 }
 
-/* ---- featured project + stats ---- */
+/* ---- featured project + big numbers ---- */
 .feature {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-7);
 }
 
 .feature__copy {
@@ -193,6 +244,12 @@
   text-decoration: none;
 }
 
+.feature__title a:hover,
+.feature__title a:focus-visible {
+  text-decoration: underline wavy var(--accent-deep);
+  text-decoration-thickness: 2px;
+}
+
 .feature__stack {
   display: flex;
   flex-wrap: wrap;
@@ -202,13 +259,16 @@
   list-style: none;
 }
 
-.feature__stack li {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--muted);
-  border: 1px solid var(--hairline);
+.feature__stack li,
+.tags li {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
   border-radius: var(--radius-control);
-  padding: 0.15rem var(--space-2);
+  padding: 0.15rem 0.7rem;
+  box-shadow: var(--shadow-1);
 }
 
 .stats {
@@ -224,39 +284,43 @@
 
 .stat {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  gap: var(--space-4);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--hairline);
-}
-
-.stat .stat__num {
-  order: 2;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
 }
 
 .stat__num {
-  font-family: var(--font-mono);
   font-size: var(--display-md);
-  font-weight: 500;
+  font-weight: 800;
   color: var(--ink);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .stat__num small {
-  font-size: var(--text-sm);
-  font-weight: 400;
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
   color: var(--muted);
   margin-left: 0.3em;
+  letter-spacing: 0;
 }
 
 .stat__label {
   margin: 0;
   font-size: var(--text-sm);
-  color: var(--muted);
-  max-width: 24ch;
+  color: var(--body);
+  max-width: 28ch;
+}
+
+/* the zero gets the yellow card, because it is the whole point */
+.stat--hero {
+  transform: rotate(-1.2deg);
+}
+
+.stat--hero .stat__num,
+.stat--hero .stat__label {
+  color: var(--on-accent);
 }
 
 @media (min-width: 48rem) {
@@ -266,22 +330,22 @@
   }
 }
 
-/* ---- elsewhere: two short items ---- */
+/* ---- elsewhere: two short items with doodle labels ---- */
 .elsewhere {
   display: grid;
   gap: var(--space-5) var(--space-8);
   margin-top: var(--space-8);
   padding-top: var(--space-6);
-  border-top: 1px solid var(--hairline);
+  border-top: var(--stroke) dashed var(--line-soft);
 }
 
 .elsewhere h3 {
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   margin-bottom: var(--space-2);
 }
 
 .elsewhere p {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 @media (min-width: 40rem) {

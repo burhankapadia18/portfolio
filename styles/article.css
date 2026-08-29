@@ -1,4 +1,4 @@
-/* long-form pages (raftkv, thoughts): a reading measure with technical figures. */
+/* long-form pages (raftkv, thoughts): a reading measure with sketched figures. */
 
 .article {
   width: min(100%, 46rem);
@@ -9,12 +9,12 @@
 .article-head {
   display: grid;
   gap: var(--space-5);
-  padding-block: clamp(3rem, 2rem + 4vw, 5rem) var(--space-7);
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem) var(--space-7);
 }
 
 .article-head__sub {
   font-size: var(--text-lg);
-  color: var(--muted);
+  color: var(--body);
   max-width: 40ch;
 }
 
@@ -26,7 +26,7 @@
 .article-head__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .tags {
@@ -39,18 +39,20 @@
 }
 
 .tags li {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--muted);
-  border: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
   border-radius: var(--radius-control);
-  padding: 0.15rem var(--space-2);
+  padding: 0.15rem 0.7rem;
+  box-shadow: var(--shadow-1);
 }
 
 /* ---- sections ---- */
 .article section {
   padding-block: var(--space-7);
-  border-top: 1px solid var(--hairline);
+  border-top: var(--stroke) dashed var(--line-soft);
 }
 
 .article section > h2 {
@@ -63,15 +65,16 @@
 }
 
 .figure {
-  margin-block: var(--space-5);
+  margin-block: var(--space-6);
 }
 
-/* ---- architecture diagram ---- */
+/* ---- architecture diagram: a sketched panel ---- */
 .diagram {
   overflow-x: auto;
-  border: 1px solid var(--hairline);
+  border: var(--stroke) solid var(--line);
   border-radius: var(--radius-panel);
   background: var(--surface);
+  box-shadow: var(--shadow-2);
   padding: var(--space-4);
 }
 
@@ -79,24 +82,30 @@
   min-width: 620px;
   width: 100%;
   height: auto;
+  font-family: var(--font-sans);
+}
+
+.diagram .hand {
+  font-family: var(--font-hand);
 }
 
 .legend {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-1) var(--space-5);
-  margin-top: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--muted);
+  margin-top: var(--space-4);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  color: var(--ink);
 }
 
 .legend i {
   display: inline-block;
   width: 0.7em;
   height: 0.7em;
-  margin-right: 0.5em;
-  border-radius: 2px;
+  margin-right: 0.4em;
+  border-radius: 3px;
+  border: 1.5px solid var(--line);
   vertical-align: -0.05em;
 }
 
@@ -105,10 +114,10 @@
 }
 
 .legend .sw-sidecar {
-  background: var(--ink);
+  background: var(--sky);
 }
 
-/* ---- write path steps ---- */
+/* ---- write path: numbered yellow badges ---- */
 .steps {
   list-style: none;
   counter-reset: step;
@@ -121,19 +130,37 @@
 .steps li {
   counter-increment: step;
   position: relative;
-  padding-left: 3rem;
+  padding-left: 3.25rem;
   max-width: var(--measure);
+  min-height: 2.25rem;
 }
 
 .steps li::before {
-  content: counter(step, decimal-leading-zero);
+  content: counter(step);
   position: absolute;
   left: 0;
-  top: 0.15em;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
+  top: -0.1rem;
+  display: grid;
+  place-items: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 50%;
+  border: var(--stroke) solid var(--line);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-hand);
+  font-size: 1.375rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-1);
+  transform: rotate(calc(var(--tilt, 0) * 1deg));
+}
+
+.steps li:nth-child(odd)::before {
+  --tilt: -6;
+}
+
+.steps li:nth-child(even)::before {
+  --tilt: 5;
 }
 
 .steps b {
@@ -141,24 +168,43 @@
   font-size: 0.875em;
   font-weight: 500;
   color: var(--ink);
+  background: var(--surface-2);
+  border: 1.5px solid var(--line-soft);
+  border-radius: var(--radius-inline);
+  padding: 0.05em 0.4em;
 }
 
-/* ---- durability files: three columns, hairline tops, no boxes ---- */
+/* ---- durability files: three index cards, slightly askew ---- */
 .files {
   display: grid;
   gap: var(--space-5);
-  margin: var(--space-5) 0;
+  margin: var(--space-5) 0 var(--space-6);
 }
 
 .files article {
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--hairline-strong);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: var(--stroke) solid var(--line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-2);
+}
+
+.files article:nth-child(1) {
+  background: var(--accent-soft);
+}
+
+.files article:nth-child(2) {
+  transform: rotate(0.8deg);
+}
+
+.files article:nth-child(3) {
+  transform: rotate(-0.7deg);
 }
 
 .files h3 {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: 500;
+  font-size: var(--text-base);
+  font-weight: 700;
   margin-bottom: var(--space-2);
 }
 
@@ -172,43 +218,55 @@
   }
 }
 
-/* ---- read cost comparison ---- */
+/* ---- read cost comparison: two speech bubbles and a "vs" ---- */
 .compare {
   display: grid;
   gap: var(--space-4);
-  padding: var(--space-5);
-  margin-block: var(--space-5);
-  border-radius: var(--radius-panel);
-  background: var(--surface-2);
+  margin-block: var(--space-6);
 }
 
 .compare__vs {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+}
+
+.compare .stat {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: var(--stroke) solid var(--line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-2);
 }
 
 .compare .stat__num {
-  font-family: var(--font-mono);
   font-size: var(--display-md);
-  font-weight: 500;
+  font-weight: 800;
   color: var(--ink);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .compare .stat__num small {
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.75;
   margin-left: 0.3em;
+  letter-spacing: 0;
 }
 
 .compare .stat__label {
   margin-top: var(--space-2);
   color: var(--ink);
-  font-size: var(--text-sm);
+  font-weight: 700;
+  font-size: var(--text-base);
 }
 
 .compare .stat__sub {
@@ -221,21 +279,24 @@
   .compare {
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 }
 
 /* ---- benchmark table ---- */
 .table-scroll {
   overflow-x: auto;
-  margin-block: var(--space-5) var(--space-3);
+  margin-block: var(--space-6) var(--space-3);
+  border: var(--stroke) solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
 }
 
 table {
   width: 100%;
   min-width: 30rem;
   border-collapse: collapse;
-  font-family: var(--font-mono);
   font-size: var(--text-sm);
   font-variant-numeric: tabular-nums;
 }
@@ -243,26 +304,29 @@ table {
 caption {
   caption-side: top;
   text-align: left;
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  color: var(--muted);
-  padding-bottom: var(--space-3);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  color: var(--ink);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--stroke) solid var(--line);
+  background: var(--accent-soft);
 }
 
 th {
   text-align: left;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: var(--text-xs);
-  color: var(--muted);
-  padding: 0 var(--space-4) var(--space-2) 0;
-  border-bottom: 1px solid var(--hairline-strong);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--stroke) solid var(--line);
+  background: var(--surface-2);
 }
 
 td {
-  padding: var(--space-3) var(--space-4) var(--space-3) 0;
-  border-bottom: 1px solid var(--hairline);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1.5px dashed var(--line-soft);
   color: var(--body);
+  font-weight: 500;
 }
 
 tr:last-child td {
@@ -272,7 +336,11 @@ tr:last-child td {
 th.num,
 td.num {
   text-align: right;
-  padding-right: 0;
+  font-family: var(--font-mono);
+}
+
+th.num {
+  font-family: var(--font-sans);
 }
 
 td.num {
@@ -284,19 +352,27 @@ td.num {
   color: var(--muted);
 }
 
-/* ---- empty state (thoughts) ---- */
+/* ---- empty state (thoughts): a notebook page with a pencil ---- */
 .empty {
   display: grid;
   gap: var(--space-4);
   padding: var(--space-6);
   margin-top: var(--space-6);
-  border: 1px dashed var(--hairline-strong);
+  border: var(--stroke) dashed var(--line);
   border-radius: var(--radius-panel);
   background: var(--surface);
+  background-image: repeating-linear-gradient(transparent 0 calc(1.6em - 1.5px), var(--line-soft) calc(1.6em - 1.5px) 1.6em);
+  background-origin: content-box;
 }
 
 .empty p {
   color: var(--body);
+}
+
+.empty__doodle {
+  width: 7rem;
+  height: auto;
+  margin-bottom: var(--space-2);
 }
 
 .empty__actions {
